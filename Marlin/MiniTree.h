@@ -308,8 +308,8 @@
 // 电机方向修改 若电机方向错位 可通过修改布尔值实现 XYZE [TEATF2]
 // XenoXue use: false false false false
 // huhuzhu use: false false true true
-#define INVERT_X_DIR false //false正 true反
-#define INVERT_Y_DIR false
+#define INVERT_X_DIR true //false正 true反
+#define INVERT_Y_DIR true
 #define INVERT_Z_DIR false
 #define INVERT_E0_DIR false
 
@@ -390,7 +390,7 @@
 #elif MiniTreeMachine == 1 // CoreXY
   // 小树定制 Z电机数量
   #define NUM_Z_STEPPER_DRIVERS 2
-  #define INVERT_Z2_VS_Z_DIR //小树定制 Z2电机反转方向
+  //#define INVERT_Z2_VS_Z_DIR //小树定制 Z2电机反转方向 禁用 by cytown
 
 #elif MiniTreeMachine == 2 // i3
   // 小树定制 Z电机数量

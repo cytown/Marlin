@@ -1515,7 +1515,7 @@ void MarlinSettings::postprocess() {
         bool tmp4[DISTINCT_AXES];
         EEPROM_READ((uint8_t *)tmp4, sizeof(tmp4));
         LOOP_DISTINCT_AXES(i) {
-          planner.settings.invert_dir[i] = i < COUNT(tmp4) ? tmp4[i] : true;
+          planner.settings.invert_dir[i] = i < COUNT(tmp4) ? tmp4[i] : planner.settings.invert_dir[i];
         }
 #endif // MiniTreeFunc
 
