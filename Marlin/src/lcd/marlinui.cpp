@@ -165,8 +165,9 @@ constexpr uint8_t epps = ENCODER_PULSES_PER_STEP;
   #endif
 #endif
 
-#if HAS_LCD_MENU && LCD_TIMEOUT_TO_STATUS > 0
+#if SCREENS_CAN_TIME_OUT
   bool MarlinUI::defer_return_to_status;
+  millis_t MarlinUI::return_to_status_ms = 0;
 #endif
 
 uint8_t MarlinUI::lcd_status_update_delay = 1; // First update one loop delayed
@@ -815,9 +816,6 @@ void MarlinUI::quick_feedback(const bool clear_buttons/*=true*/) {
 
 LCDViewAction MarlinUI::lcdDrawUpdate = LCDVIEW_CLEAR_CALL_REDRAW;
 millis_t next_lcd_update_ms;
-#if HAS_LCD_MENU && LCD_TIMEOUT_TO_STATUS
-  millis_t MarlinUI::return_to_status_ms = 0;
-#endif
 
 inline bool can_encode() {
   return !BUTTON_PRESSED(ENC_EN); // Update encoder only when ENC_EN is not LOW (pressed)
@@ -827,12 +825,6 @@ void MarlinUI::update() {
 
   static uint16_t max_display_update_time = 0;
   millis_t ms = millis();
-
-  #if HAS_LCD_MENU && LCD_TIMEOUT_TO_STATUS > 0
-    #define RESET_STATUS_TIMEOUT() (return_to_status_ms = ms + LCD_TIMEOUT_TO_STATUS)
-  #else
-    #define RESET_STATUS_TIMEOUT() NOOP
-  #endif
 
   #ifdef LED_BACKLIGHT_TIMEOUT
     leds.update_timeout(powersupply_on);
@@ -859,7 +851,7 @@ void MarlinUI::update() {
 
     #if HAS_TOUCH_BUTTONS
       if (touch_buttons) {
-        RESET_STATUS_TIMEOUT();
+        reset_status_timeout(ms);
         if (touch_buttons & (EN_A | EN_B)) {              // Menu arrows, in priority
           if (ELAPSED(ms, next_button_update_ms)) {
             encoderDiff = (ENCODER_STEPS_PER_MENU_ITEM) * epps * encoderDirection;
@@ -914,7 +906,7 @@ void MarlinUI::update() {
       TERN_(HAS_SLOW_BUTTONS, slow_buttons = read_slow_buttons()); // Buttons that take too long to read in interrupt context
 
       if (TERN0(IS_RRW_KEYPAD, handle_keypad()))
-        RESET_STATUS_TIMEOUT();
+        reset_status_timeout(ms);
 
       uint8_t abs_diff = ABS(encoderDiff);
 
@@ -980,7 +972,7 @@ void MarlinUI::update() {
           encoderDiff = 0;
         }
 
-        RESET_STATUS_TIMEOUT();
+        reset_status_timeout(ms);
 
         refresh(LCDVIEW_REDRAW_NOW);
 
@@ -993,7 +985,11 @@ void MarlinUI::update() {
 
     // This runs every ~100ms when idling often enough.
     // Instead of tracking changes just redraw the Status Screen once per second.
-    if (on_status_screen() && !lcd_status_update_delay--) {
+#ifdef MiniTreeFunc // MiniTree.h
+    // MiniTree 小树定制固件，在限位状态界面会和打印机状态页面一样每100ms刷新一次。以便及时反馈限位状态
+    //if (on_status_screen() && !lcd_status_update_delay--) {
+    if ((on_status_screen() || (currentScreen == menu_endstop_status))&& !lcd_status_update_delay--) {
+#endif
       lcd_status_update_delay = TERN(HAS_MARLINUI_U8GLIB, 12, 9);
       if (max_display_update_time) max_display_update_time--;  // Be sure never go to a very big number
       refresh(LCDVIEW_REDRAW_NOW);
@@ -1006,7 +1002,7 @@ void MarlinUI::update() {
         lcd_status_update_delay = ++filename_scroll_pos >= filename_scroll_max ? 12 : 4; // Long delay at end and start
         if (filename_scroll_pos > filename_scroll_max) filename_scroll_pos = 0;
         refresh(LCDVIEW_REDRAW_NOW);
-        RESET_STATUS_TIMEOUT();
+        reset_status_timeout(ms);
       }
     #endif
 
@@ -1075,10 +1071,14 @@ void MarlinUI::update() {
         NOLESS(max_display_update_time, millis() - ms);
     }
 
-    #if HAS_LCD_MENU && LCD_TIMEOUT_TO_STATUS > 0
+    #if SCREENS_CAN_TIME_OUT
       // Return to Status Screen after a timeout
-      if (on_status_screen() || defer_return_to_status)
-        RESET_STATUS_TIMEOUT();
+#ifdef MiniTreeFunc // MiniTree.h
+      //if (on_status_screen() || defer_return_to_status)
+      // MiniTree 小树定制固件，在限位状态界面不会自动返回到状态界面
+      if (on_status_screen() || defer_return_to_status || currentScreen == menu_endstop_status)
+#endif
+        reset_status_timeout(ms);
       else if (ELAPSED(ms, return_to_status_ms))
         return_to_status();
     #endif
@@ -1269,7 +1269,15 @@ void MarlinUI::update() {
       static uint8_t lastEncoderBits;
 
       // Manage encoder rotation
-      #define ENCODER_SPIN(_E1, _E2) switch (lastEncoderBits) { case _E1: encoderDiff += encoderDirection; break; case _E2: encoderDiff -= encoderDirection; }
+#ifdef MiniTreeFunc // MiniTree.h
+      //#define ENCODER_SPIN(_E1, _E2) switch (lastEncoderBits) { case _E1: encoderDiff += encoderDirection; break; case _E2: encoderDiff -= encoderDirection; }
+      // MiniTree 小树定制固件，新增变量来决定encoderdirection，并重写ENCODER_SPIN，将encoderDirection替换成新增的变量。
+      uint8_t realdirection = encoderDirection;
+      if(ui.encoder_dir){
+        realdirection = -realdirection;
+      }
+      #define ENCODER_SPIN(_E1, _E2) switch (lastEncoderBits) { case _E1: encoderDiff += realdirection; break; case _E2: encoderDiff -= realdirection; }
+#endif
 
       uint8_t enc = 0;
       if (buttons & EN_A) enc |= B01;
@@ -1493,6 +1501,13 @@ void MarlinUI::update() {
     LCD_MESSAGEPGM(MSG_PRINT_ABORTED);
     TERN_(HAS_LCD_MENU, return_to_status());
   }
+
+  #if BOTH(PSU_CONTROL, PS_OFF_CONFIRM)
+    void MarlinUI::poweroff() {
+      queue.inject_P(PSTR("M81"));
+      goto_previous_screen();
+    }
+  #endif
 
   void MarlinUI::flow_fault() {
     LCD_ALERTMESSAGEPGM(MSG_FLOWMETER_FAULT);

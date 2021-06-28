@@ -200,7 +200,11 @@ skew_factor_t Planner::skew_factor; // Initialized by settings.load()
   celsius_t Planner::autotemp_max = 250,
             Planner::autotemp_min = 210;
   float Planner::autotemp_factor = 0.1f;
-  bool Planner::autotemp_enabled = false;
+#ifdef MiniTreeFunc // MiniTree.h
+  //bool Planner::autotemp_enabled = false;
+  // MiniTree 小树定制固件 自动控温默认改为开启
+  bool Planner::autotemp_enabled = true;
+#endif
 #endif
 
 // private:

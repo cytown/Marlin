@@ -90,7 +90,8 @@ done
 #   Marlin/src/lcd/dogm/fontdata/fontdata_ISO10646_1.h
 #
 #if [ "${MARLIN_LANGS}" == "${LANGS_DEFAULT}" ]; then
-if [ 1 = 1 ]; then
+#if [ 1 = 1 ]; then
+if [ 1 = 0 ]; then
   DN_WORK=`mktemp -d`
   cd ${DN_WORK}
   ${EXEC_BDF2U8G} -b 1 -e 127 ${FN_FONT} ISO10646_1_5x7 tmp1.h >/dev/null

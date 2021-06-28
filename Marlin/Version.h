@@ -28,7 +28,7 @@
 /**
  * Marlin release version identifier
  */
-//#define SHORT_BUILD_VERSION "2.0.9.1"
+#define SHORT_BUILD_VERSION "2.0.9.1 MT"
 
 /**
  * Verbose version identifier which should contain a reference to the location
@@ -42,11 +42,12 @@
  * version was tagged.
  */
 //#define STRING_DISTRIBUTION_DATE "2021-06-27"
+#define STRING_DISTRIBUTION_DATE "2021-06-29"
 
 /**
  * Defines a generic printer name to be output to the LCD after booting Marlin.
  */
-//#define MACHINE_NAME "3D Printer"
+#define MACHINE_NAME "MiniTree"
 
 /**
  * The SOURCE_CODE_URL is the location where users will find the Marlin Source
@@ -65,7 +66,7 @@
  * The WEBSITE_URL is the location where users can get more information such as
  * documentation about a specific Marlin release.
  */
-//#define WEBSITE_URL "marlinfw.org"
+#define WEBSITE_URL "minitree.fun"
 
 /**
  * Set the vendor info the serial USB interface, if changable
@@ -74,3 +75,4 @@
 //#define USB_DEVICE_VENDOR_ID           0x0000
 //#define USB_DEVICE_PRODUCT_ID          0x0000
 //#define USB_DEVICE_MANUFACTURE_NAME    WEBSITE_URL
+#define USB_DEVICE_MANUFACTURE_NAME    "MiniTree 3D Printers"

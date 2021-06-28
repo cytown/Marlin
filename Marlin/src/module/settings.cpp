@@ -35,8 +35,13 @@
  *       either sets a Sane Default, or results in No Change to the existing value.
  */
 
+#include "../../MiniTree.h"
+
 // Change EEPROM version if the structure changes
-#define EEPROM_VERSION "V83"
+#ifdef MiniTreeFunc // MiniTree.h
+//#define EEPROM_VERSION "V83"
+#define EEPROM_VERSION "M02"	   //小树定制固件,专属eeprom版本号,原版格式为Vnn\0
+#endif // MiniTreeFunc
 #define EEPROM_OFFSET 100
 
 // Check the integrity of data offsets.
@@ -201,6 +206,11 @@ typedef struct SettingsDataStruct {
   uint8_t   esteppers;                                  // DISTINCT_AXES - LINEAR_AXES
 
   planner_settings_t planner_settings;
+
+#ifdef MiniTreeFunc // MiniTree.h
+  // MiniTree 小树专属固件 新增一个屏幕旋钮方向的变量
+  bool encoder_dir;
+#endif // MiniTreeFunc
 
   xyze_float_t planner_max_jerk;                        // M205 XYZE  planner.max_jerk
   float planner_junction_deviation_mm;                  // M205 J     planner.junction_deviation_mm
@@ -665,6 +675,11 @@ void MarlinSettings::postprocess() {
       TERN_(CLASSIC_JERK, dummyf = 0.02f);
       EEPROM_WRITE(TERN(CLASSIC_JERK, dummyf, planner.junction_deviation_mm));
     }
+
+#ifdef MiniTreeFunc // MiniTree.h
+    // MiniTree 小树定制固件，保存旋钮方向到EEPROM
+    EEPROM_WRITE(ui.encoder_dir);
+#endif // MiniTreeFunc
 
     //
     // Home Offset
@@ -1494,6 +1509,16 @@ void MarlinSettings::postprocess() {
         EEPROM_READ(planner.settings.min_feedrate_mm_s);
         EEPROM_READ(planner.settings.min_travel_feedrate_mm_s);
 
+#ifdef MiniTreeFunc // MiniTree.h
+        // MiniTree 小树定制固件，读取设置
+        // 电机方向
+        bool tmp4[DISTINCT_AXES];
+        EEPROM_READ((uint8_t *)tmp4, sizeof(tmp4));
+        LOOP_DISTINCT_AXES(i) {
+          planner.settings.invert_dir[i] = i < COUNT(tmp4) ? tmp4[i] : true;
+        }
+#endif // MiniTreeFunc
+
         #if HAS_CLASSIC_JERK
           EEPROM_READ(planner.max_jerk);
           #if HAS_LINEAR_E_JERK
@@ -1505,6 +1530,11 @@ void MarlinSettings::postprocess() {
 
         EEPROM_READ(TERN(CLASSIC_JERK, dummyf, planner.junction_deviation_mm));
       }
+
+#ifdef MiniTreeFunc // MiniTree.h
+      // MiniTree 小树定制固件 读取旋钮旋钮方向
+      EEPROM_READ(ui.encoder_dir);
+#endif // MiniTreeFunc
 
       //
       // Home Offset (M206 / M665)
@@ -2510,6 +2540,34 @@ void MarlinSettings::reset() {
   planner.settings.travel_acceleration = DEFAULT_TRAVEL_ACCELERATION;
   planner.settings.min_feedrate_mm_s = feedRate_t(DEFAULT_MINIMUMFEEDRATE);
   planner.settings.min_travel_feedrate_mm_s = feedRate_t(DEFAULT_MINTRAVELFEEDRATE);
+
+#ifdef MiniTreeFunc // MiniTree.h
+  // MiniTree 小树定制固件，恢复初始设置。
+  //电机方向
+  bool Invert_DIR_Default[DISTINCT_AXES];
+  memset(Invert_DIR_Default, true, sizeof(Invert_DIR_Default));
+  #ifdef INVERT_X_DIR
+    Invert_DIR_Default[X_AXIS] = INVERT_X_DIR;
+  #endif
+  #ifdef INVERT_Y_DIR
+    Invert_DIR_Default[Y_AXIS] = INVERT_Y_DIR;
+  #endif
+  #ifdef INVERT_Z_DIR
+    Invert_DIR_Default[Z_AXIS] = INVERT_Z_DIR;
+  #endif
+  #ifdef INVERT_E0_DIR
+    Invert_DIR_Default[E_AXIS] = INVERT_E0_DIR;
+  #endif
+  LOOP_DISTINCT_AXES(i) {
+      planner.settings.invert_dir[i] = Invert_DIR_Default[i];
+  }
+  //屏幕旋钮方向
+  #ifdef REVERSE_ENCODER_DIRECTION
+    ui.encoder_dir = true;
+  #else
+    ui.encoder_dir = false;
+  #endif
+#endif // MiniTreeFunc
 
   #if HAS_CLASSIC_JERK
     #ifndef DEFAULT_XJERK

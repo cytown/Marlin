@@ -34,11 +34,11 @@ namespace Language_zh_CN {
   PROGMEM Language_Str LANGUAGE                            = _UxGT("简体中文");
 
   PROGMEM Language_Str WELCOME_MSG                         = MACHINE_NAME _UxGT("已就绪.");     //" ready."
-  PROGMEM Language_Str MSG_MARLIN                          = _UxGT("马林");
+  PROGMEM Language_Str MSG_MARLIN                          = _UxGT("Marlin");
   PROGMEM Language_Str MSG_YES                             = _UxGT("是");
   PROGMEM Language_Str MSG_NO                              = _UxGT("否");
   PROGMEM Language_Str MSG_BACK                            = _UxGT("返回");     // ”Back“
-  PROGMEM Language_Str MSG_MEDIA_ABORTING                  = _UxGT("放弃中...");
+  PROGMEM Language_Str MSG_MEDIA_ABORTING                  = _UxGT("中断中...");
   PROGMEM Language_Str MSG_MEDIA_INSERTED                  = _UxGT("存储卡已插入");     //"Card inserted"
   PROGMEM Language_Str MSG_MEDIA_REMOVED                   = _UxGT("存储卡被拔出");     //"Card removed"
   PROGMEM Language_Str MSG_MEDIA_WAITING                   = _UxGT("等待存储器");
@@ -46,8 +46,8 @@ namespace Language_zh_CN {
   PROGMEM Language_Str MSG_MEDIA_USB_REMOVED               = _UxGT("USB设备已弹出");
   PROGMEM Language_Str MSG_MEDIA_USB_FAILED                = _UxGT("USB启动错误");
   PROGMEM Language_Str MSG_KILL_SUBCALL_OVERFLOW           = _UxGT("子响应溢出");
-  PROGMEM Language_Str MSG_LCD_ENDSTOPS                    = _UxGT("挡块");     //"Endstops" // Max length 8 characters
-  PROGMEM Language_Str MSG_LCD_SOFT_ENDSTOPS               = _UxGT("软挡块");
+  PROGMEM Language_Str MSG_LCD_ENDSTOPS                    = _UxGT("限位");     //"Endstops" // Max length 8 characters
+  PROGMEM Language_Str MSG_LCD_SOFT_ENDSTOPS               = _UxGT("软限位");
   PROGMEM Language_Str MSG_MAIN                            = _UxGT("主菜单");     //"Main"
   PROGMEM Language_Str MSG_ADVANCED_SETTINGS               = _UxGT("高级设置");
   PROGMEM Language_Str MSG_CONFIGURATION                   = _UxGT("配置");
@@ -56,11 +56,11 @@ namespace Language_zh_CN {
   PROGMEM Language_Str MSG_DEBUG_MENU                      = _UxGT("调试菜单");     // "Debug Menu"
   PROGMEM Language_Str MSG_PROGRESS_BAR_TEST               = _UxGT("进度条测试");     // "Progress Bar Test"
   PROGMEM Language_Str MSG_AUTO_HOME                       = _UxGT("自动回原点");     //"Auto home"
-  PROGMEM Language_Str MSG_AUTO_HOME_X                     = _UxGT("回X原位");     //"Home X"
-  PROGMEM Language_Str MSG_AUTO_HOME_Y                     = _UxGT("回Y原位");     //"Home Y"
-  PROGMEM Language_Str MSG_AUTO_HOME_Z                     = _UxGT("回Z原位");     //"Home Z"
+  PROGMEM Language_Str MSG_AUTO_HOME_X                     = _UxGT("X回原点");     //"Home X"
+  PROGMEM Language_Str MSG_AUTO_HOME_Y                     = _UxGT("Y回原点");     //"Home Y"
+  PROGMEM Language_Str MSG_AUTO_HOME_Z                     = _UxGT("Z回原点");     //"Home Z"
   PROGMEM Language_Str MSG_AUTO_Z_ALIGN                    = _UxGT("自动Z对齐");
-  PROGMEM Language_Str MSG_LEVEL_BED_HOMING                = _UxGT("平台调平XYZ归原位");     //"Homing XYZ"
+  PROGMEM Language_Str MSG_LEVEL_BED_HOMING                = _UxGT("平台调平XYZ归原点");     //"Homing XYZ"
   PROGMEM Language_Str MSG_LEVEL_BED_WAITING               = _UxGT("单击开始热床调平");     //"Click to Begin"
   PROGMEM Language_Str MSG_LEVEL_BED_NEXT_POINT            = _UxGT("下个热床调平点");     //"Next Point"
   PROGMEM Language_Str MSG_LEVEL_BED_DONE                  = _UxGT("完成热床调平");     //"Leveling Done!"
@@ -230,6 +230,7 @@ namespace Language_zh_CN {
   PROGMEM Language_Str MSG_MOVE_01MM                       = _UxGT("移动 0.1 mm");     //"Move 0.1mm"
   PROGMEM Language_Str MSG_MOVE_1MM                        = _UxGT("移动 1 mm");     //"Move 1mm"
   PROGMEM Language_Str MSG_MOVE_10MM                       = _UxGT("移动 10 mm");     //"Move 10mm"
+  PROGMEM Language_Str MSG_MOVE_100MM                      = _UxGT("移动 100 mm");    //"Move 100mm"
   PROGMEM Language_Str MSG_SPEED                           = _UxGT("速率");     //"Speed"
   PROGMEM Language_Str MSG_BED_Z                           = _UxGT("热床Z");     //"Bed Z"
   PROGMEM Language_Str MSG_NOZZLE                          = _UxGT("喷嘴");     //"Nozzle" 噴嘴
@@ -392,14 +393,14 @@ namespace Language_zh_CN {
   PROGMEM Language_Str MSG_FILAMENTUNLOAD_ALL              = _UxGT("卸载全部");     // "Unload All"
   PROGMEM Language_Str MSG_ATTACH_MEDIA                    = _UxGT("初始化存储卡");     //"Init. SD card"
   PROGMEM Language_Str MSG_CHANGE_MEDIA                    = _UxGT("更换存储卡");     //"Change SD card"
-  PROGMEM Language_Str MSG_RELEASE_MEDIA                   = _UxGT("释放存储卡");
+  PROGMEM Language_Str MSG_RELEASE_MEDIA                   = _UxGT("弹出存储卡");
   PROGMEM Language_Str MSG_ZPROBE_OUT                      = _UxGT("Z探针在热床之外");     //"Z probe out. bed" Z probe is not within the physical limits
   PROGMEM Language_Str MSG_SKEW_FACTOR                     = _UxGT("偏斜因数");     // "Skew Factor"
   PROGMEM Language_Str MSG_BLTOUCH                         = _UxGT("BLTouch");     // "BLTouch"
   PROGMEM Language_Str MSG_BLTOUCH_SELFTEST                = _UxGT("自检");
   PROGMEM Language_Str MSG_BLTOUCH_RESET                   = _UxGT("重置");
-  PROGMEM Language_Str MSG_BLTOUCH_STOW                    = _UxGT("装载");
-  PROGMEM Language_Str MSG_BLTOUCH_DEPLOY                  = _UxGT("部署");
+  PROGMEM Language_Str MSG_BLTOUCH_STOW                    = _UxGT("收起");
+  PROGMEM Language_Str MSG_BLTOUCH_DEPLOY                  = _UxGT("弹出");
   PROGMEM Language_Str MSG_BLTOUCH_SW_MODE                 = _UxGT("SW模式");
   PROGMEM Language_Str MSG_BLTOUCH_5V_MODE                 = _UxGT("5V模式");
   PROGMEM Language_Str MSG_BLTOUCH_OD_MODE                 = _UxGT("OD模式");
@@ -412,10 +413,10 @@ namespace Language_zh_CN {
   PROGMEM Language_Str MSG_TOUCHMI_INIT                    = _UxGT("初始化TouchMI");
   PROGMEM Language_Str MSG_TOUCHMI_ZTEST                   = _UxGT("Z偏移量测试");
   PROGMEM Language_Str MSG_TOUCHMI_SAVE                    = _UxGT("保存");
-  PROGMEM Language_Str MSG_MANUAL_DEPLOY_TOUCHMI           = _UxGT("部署TouchMI");
-  PROGMEM Language_Str MSG_MANUAL_DEPLOY                   = _UxGT("部署Z探针");
-  PROGMEM Language_Str MSG_MANUAL_STOW                     = _UxGT("收好Z探针");
-  PROGMEM Language_Str MSG_HOME_FIRST                      = _UxGT("归位 %s%s%s 先");     //"Home ... first"
+  PROGMEM Language_Str MSG_MANUAL_DEPLOY_TOUCHMI           = _UxGT("弹出TouchMI");
+  PROGMEM Language_Str MSG_MANUAL_DEPLOY                   = _UxGT("弹出Z探针");
+  PROGMEM Language_Str MSG_MANUAL_STOW                     = _UxGT("收起Z探针");
+  PROGMEM Language_Str MSG_HOME_FIRST                      = _UxGT("先归位 %s%s%s");     //"Home ... first"
   PROGMEM Language_Str MSG_ZPROBE_OFFSETS                  = _UxGT("探针偏移量");
   PROGMEM Language_Str MSG_ZPROBE_XOFFSET                  = _UxGT("探针X偏移");
   PROGMEM Language_Str MSG_ZPROBE_YOFFSET                  = _UxGT("探针Y偏移");
@@ -423,13 +424,13 @@ namespace Language_zh_CN {
   PROGMEM Language_Str MSG_BABYSTEP_X                      = _UxGT("微量调整X轴");     //"Babystep X" lcd_babystep_x, Babystepping enables the user to control the axis in tiny amounts
   PROGMEM Language_Str MSG_BABYSTEP_Y                      = _UxGT("微量调整Y轴");     //"Babystep Y"
   PROGMEM Language_Str MSG_BABYSTEP_Z                      = _UxGT("微量调整Z轴");     //"Babystep Z"
-  PROGMEM Language_Str MSG_BABYSTEP_TOTAL                  = _UxGT("总计");
-  PROGMEM Language_Str MSG_ENDSTOP_ABORT                   = _UxGT("挡块终止");     //"Endstop abort"
+  PROGMEM Language_Str MSG_BABYSTEP_TOTAL                  = _UxGT("微量调整总计");
+  PROGMEM Language_Str MSG_ENDSTOP_ABORT                   = _UxGT("限位终止");     //"Endstop abort"
   PROGMEM Language_Str MSG_HEATING_FAILED_LCD              = _UxGT("加热失败");     //"Heating failed"
   PROGMEM Language_Str MSG_ERR_REDUNDANT_TEMP              = _UxGT("错误：冗余温度");     //"Err: REDUNDANT TEMP"
-  PROGMEM Language_Str MSG_THERMAL_RUNAWAY                 = _UxGT("温控失控");     //"THERMAL RUNAWAY"
-  PROGMEM Language_Str MSG_THERMAL_RUNAWAY_BED             = _UxGT("热床热量失控");
-  PROGMEM Language_Str MSG_THERMAL_RUNAWAY_CHAMBER         = _UxGT("机箱热量失控");
+  PROGMEM Language_Str MSG_THERMAL_RUNAWAY                 = _UxGT("温度失控");     //"THERMAL RUNAWAY"
+  PROGMEM Language_Str MSG_THERMAL_RUNAWAY_BED             = _UxGT("热床温度失控");
+  PROGMEM Language_Str MSG_THERMAL_RUNAWAY_CHAMBER         = _UxGT("保温箱温度失控");
   PROGMEM Language_Str MSG_ERR_MAXTEMP                     = _UxGT("错误：最高温度");     //"Err: MAXTEMP"
   PROGMEM Language_Str MSG_ERR_MINTEMP                     = _UxGT("错误：最低温度");     //"Err: MINTEMP"
   PROGMEM Language_Str MSG_HALTED                          = _UxGT("打印停机");     //"PRINTER HALTED"
@@ -441,8 +442,8 @@ namespace Language_zh_CN {
   PROGMEM Language_Str MSG_COOLING                         = _UxGT("冷却中 ...");
   PROGMEM Language_Str MSG_BED_HEATING                     = _UxGT("加热热床中 ...");     //"Bed Heating..."
   PROGMEM Language_Str MSG_BED_COOLING                     = _UxGT("热床冷却中 ...");
-  PROGMEM Language_Str MSG_CHAMBER_HEATING                 = _UxGT("机箱加热中 ...");
-  PROGMEM Language_Str MSG_CHAMBER_COOLING                 = _UxGT("机箱冷却中 ...");
+  PROGMEM Language_Str MSG_CHAMBER_HEATING                 = _UxGT("保温箱加热中 ...");
+  PROGMEM Language_Str MSG_CHAMBER_COOLING                 = _UxGT("保温箱冷却中 ...");
   PROGMEM Language_Str MSG_DELTA_CALIBRATE                 = _UxGT("⊿校准");     //"Delta Calibration"
   PROGMEM Language_Str MSG_DELTA_CALIBRATE_X               = _UxGT("⊿校准X");     //"Calibrate X"
   PROGMEM Language_Str MSG_DELTA_CALIBRATE_Y               = _UxGT("⊿校准Y");     //"Calibrate Y"
@@ -470,7 +471,7 @@ namespace Language_zh_CN {
   PROGMEM Language_Str MSG_INFO_PROTOCOL                   = _UxGT("协议");     //"Protocol"
   PROGMEM Language_Str MSG_INFO_RUNAWAY_OFF                = _UxGT("监控温度失控:关");
   PROGMEM Language_Str MSG_INFO_RUNAWAY_ON                 = _UxGT("监控温度失控:开");
-  PROGMEM Language_Str MSG_HOTEND_IDLE_TIMEOUT             = _UxGT("热端空闲超时");
+  PROGMEM Language_Str MSG_HOTEND_IDLE_TIMEOUT             = _UxGT("热端待机超时");
 
   PROGMEM Language_Str MSG_CASE_LIGHT                      = _UxGT("外壳灯");     // "Case light"
   PROGMEM Language_Str MSG_CASE_LIGHT_BRIGHTNESS           = _UxGT("灯亮度");     // "Light BRIGHTNESS"
@@ -511,7 +512,7 @@ namespace Language_zh_CN {
   PROGMEM Language_Str MSG_FILAMENT_CHANGE_NOZZLE          = _UxGT("  喷嘴: ");     // "  Nozzle: "
   PROGMEM Language_Str MSG_RUNOUT_SENSOR                   = _UxGT("断料传感器");
   PROGMEM Language_Str MSG_RUNOUT_DISTANCE_MM              = _UxGT("断料距离mm");
-  PROGMEM Language_Str MSG_KILL_HOMING_FAILED              = _UxGT("归原位失败");     // "Homing failed"
+  PROGMEM Language_Str MSG_KILL_HOMING_FAILED              = _UxGT("归零失败");     // "Homing failed"
   PROGMEM Language_Str MSG_LCD_PROBING_FAILED              = _UxGT("探针探测失败");     // "Probing failed"
 
   PROGMEM Language_Str MSG_MMU2_CHOOSE_FILAMENT_HEADER     = _UxGT("选择料");
@@ -595,9 +596,9 @@ namespace Language_zh_CN {
   PROGMEM Language_Str MSG_TMC_DRIVERS                     = _UxGT("TMC驱动器");
   PROGMEM Language_Str MSG_TMC_CURRENT                     = _UxGT("驱动电流");
   PROGMEM Language_Str MSG_TMC_HYBRID_THRS                 = _UxGT("混合阈值");
-  PROGMEM Language_Str MSG_TMC_HOMING_THRS                 = _UxGT("无感回零");
+  PROGMEM Language_Str MSG_TMC_HOMING_THRS                 = _UxGT("无限位归零");
   PROGMEM Language_Str MSG_TMC_STEPPING_MODE               = _UxGT("步进模式");
-  PROGMEM Language_Str MSG_TMC_STEALTH_ENABLED             = _UxGT("StealthChop已使能");
+  PROGMEM Language_Str MSG_TMC_STEALTH_ENABLED             = _UxGT("静音模式已启用");
   PROGMEM Language_Str MSG_SERVICE_RESET                   = _UxGT("复位");
   PROGMEM Language_Str MSG_SERVICE_IN                      = _UxGT(" 在:");
   PROGMEM Language_Str MSG_BACKLASH                        = _UxGT("回差");
@@ -612,6 +613,24 @@ namespace Language_zh_CN {
   PROGMEM Language_Str MSG_HEATER_TIMEOUT                  = _UxGT("加热器超时");
   PROGMEM Language_Str MSG_REHEAT                          = _UxGT("重新加热");
   PROGMEM Language_Str MSG_REHEATING                       = _UxGT("重新加热中...");
+// MiniTree 小树定制固件，新增文本
+  PROGMEM Language_Str MSG_SETUP                           = _UxGT("调机");
+  PROGMEM Language_Str MSG_INVERT_DIR                      = _UxGT("电机方向");
+  PROGMEM Language_Str MSG_ENCODER_DIR                     = _UxGT("屏幕旋钮方向");
+  PROGMEM Language_Str MSG_ENDSTOP_STATUS                  = _UxGT("限位开关状态");
+  PROGMEM Language_Str MSG_ALLOW_COLD_EXTRUDE              = _UxGT("冷挤出开关");
+  PROGMEM Language_Str MSG_LCD_Forward                     = _UxGT("正转");
+  PROGMEM Language_Str MSG_LCD_Backward                    = _UxGT("反转");
+  PROGMEM Language_Str MSG_X_INVERT_DIR                    = _UxGT("X电机方向");
+  PROGMEM Language_Str MSG_Y_INVERT_DIR                    = _UxGT("Y电机方向");
+  PROGMEM Language_Str MSG_Z_INVERT_DIR                    = _UxGT("Z电机方向");
+  PROGMEM Language_Str MSG_E_INVERT_DIR                    = _UxGT("挤出机电机方向");
+  PROGMEM Language_Str MSG_X_MIN_STATUS                    = _UxGT("Xmin限位状态");
+  PROGMEM Language_Str MSG_Y_MIN_STATUS                    = _UxGT("Ymin限位状态");
+  PROGMEM Language_Str MSG_Z_MIN_STATUS                    = _UxGT("Zmin限位状态");
+  PROGMEM Language_Str MSG_X_MAX_STATUS                    = _UxGT("Xmax限位状态");
+  PROGMEM Language_Str MSG_Y_MAX_STATUS                    = _UxGT("Ymax限位状态");
+  PROGMEM Language_Str MSG_Z_MAX_STATUS                    = _UxGT("ZMAX限位状态");
 }
 
 #if FAN_COUNT == 1

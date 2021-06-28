@@ -415,7 +415,11 @@ const char str_t_thermal_runaway[] PROGMEM = STR_T_THERMAL_RUNAWAY,
 #endif
 
 #if ENABLED(PREVENT_COLD_EXTRUSION)
-  bool Temperature::allow_cold_extrude = false;
+#ifdef MiniTreeFunc // MiniTree.h
+  //bool Temperature::allow_cold_extrude = false;
+  // MiniTree 小树定制固件，把allow_cold_extrude改成true。这样就是默认开启冷挤出了。
+  bool Temperature::allow_cold_extrude = true;
+#endif // MiniTreeFunc
   celsius_t Temperature::extrude_min_temp = EXTRUDE_MINTEMP;
 #endif
 
@@ -3482,10 +3486,10 @@ void Temperature::isr() {
     #endif
     #if HAS_TEMP_CHAMBER
       print_heater_state(H_CHAMBER, degChamber(), TERN0(HAS_HEATED_CHAMBER, degTargetChamber()) OPTARG(SHOW_TEMP_ADC_VALUES, rawChamberTemp()));
-    #endif
+        #endif
     #if HAS_TEMP_COOLER
       print_heater_state(H_COOLER, degCooler(), TERN0(HAS_COOLER, degTargetCooler()) OPTARG(SHOW_TEMP_ADC_VALUES, rawCoolerTemp()));
-    #endif
+        #endif
     #if HAS_TEMP_PROBE
       print_heater_state(H_PROBE, degProbe(), 0 OPTARG(SHOW_TEMP_ADC_VALUES, rawProbeTemp()) );
     #endif

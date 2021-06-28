@@ -279,6 +279,9 @@ typedef struct {
             travel_acceleration;                // (mm/s^2) M204 T - Travel acceleration. DEFAULT ACCELERATION for all NON printing moves.
  feedRate_t min_feedrate_mm_s,                  // (mm/s) M205 S - Minimum linear feedrate
             min_travel_feedrate_mm_s;           // (mm/s) M205 T - Minimum travel feedrate
+#ifdef MiniTreeFunc // MiniTree.h
+      bool  invert_dir[DISTINCT_AXES];          // 电机方向
+#endif
 } planner_settings_t;
 
 #if DISABLED(SKEW_CORRECTION)

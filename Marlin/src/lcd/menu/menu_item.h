@@ -39,7 +39,7 @@ class MenuItem_submenu : public MenuItemBase {
     FORCE_INLINE static void draw(const bool sel, const uint8_t row, PGM_P const pstr, ...) {
       _draw(sel, row, pstr, '>', LCD_STR_ARROW_RIGHT[0]);
     }
-    static inline void action(PGM_P const, const screenFunc_t func) { ui.save_previous_screen(); ui.goto_screen(func); }
+    static inline void action(PGM_P const, const screenFunc_t func) { ui.push_current_screen(); ui.goto_screen(func); }
 };
 
 // Any menu item that invokes an immediate action
@@ -168,6 +168,44 @@ class MenuItem_bool : public MenuEditItemBase {
       if (callbackFunc) (*callbackFunc)();
     }
 };
+
+#ifdef MiniTreeFunc // MiniTree.h
+// MiniTree 小树定制固件 新增一个菜单选项类型，用于电机方向的正反设定
+class MenuItem_bool2 : public MenuEditItemBase {
+  public:
+    FORCE_INLINE static void draw(const bool sel, const uint8_t row, PGM_P const pstr, const bool onoff) {
+      MenuEditItemBase::draw(sel, row, pstr, onoff ? GET_TEXT(MSG_LCD_Backward) : GET_TEXT(MSG_LCD_Forward), true);
+    }
+    FORCE_INLINE static void draw(const bool sel, const uint8_t row, PGM_P const pstr, bool * const data, ...) {
+      draw(sel, row, pstr, *data);
+    }
+    FORCE_INLINE static void draw(const bool sel, const uint8_t row, PGM_P const pstr, PGM_P const, bool (*pget)(), ...) {
+      draw(sel, row, pstr, pget());
+    }
+    static void action(PGM_P const pstr, bool * const ptr, const screenFunc_t callbackFunc=nullptr) {
+      *ptr ^= true; ui.refresh();
+      if (callbackFunc) (*callbackFunc)();
+    }
+};
+
+// MiniTree 小树定制固件 新增一个菜单选项类型，用于显示不可编辑的项目
+class MenuItem_bool3 : public MenuEditItemBase {
+  public:
+    FORCE_INLINE static void draw(const bool sel, const uint8_t row, PGM_P const pstr, const bool onoff) {
+      MenuEditItemBase::draw(sel, row, pstr, onoff ? GET_TEXT(MSG_LCD_ON) : GET_TEXT(MSG_LCD_OFF), true);
+    }
+    FORCE_INLINE static void draw(const bool sel, const uint8_t row, PGM_P const pstr, bool * const data, ...) {
+      draw(sel, row, pstr, *data);
+    }
+    FORCE_INLINE static void draw(const bool sel, const uint8_t row, PGM_P const pstr, PGM_P const, bool (*pget)(), ...) {
+      draw(sel, row, pstr, pget());
+    }
+    static void action(PGM_P const pstr, bool * const ptr, const screenFunc_t callbackFunc=nullptr) {
+      ui.refresh();
+      if (callbackFunc) (*callbackFunc)();
+    }
+};
+#endif
 
 /**
  * ////////////////////////////////////////////
@@ -406,7 +444,7 @@ class MenuItem_bool : public MenuEditItemBase {
 
 #define _CONFIRM_ITEM_INNER_P(PLABEL, V...) do {             \
   if (encoderLine == _thisItemNr && ui.use_click()) {        \
-    ui.save_previous_screen();                               \
+    ui.push_current_screen();                                \
     ui.goto_screen([]{MenuItem_confirm::select_screen(V);}); \
     return;                                                  \
   }                                                          \
