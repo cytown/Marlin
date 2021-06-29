@@ -311,7 +311,7 @@
 #define INVERT_X_DIR true //false正 true反
 #define INVERT_Y_DIR true
 #define INVERT_Z_DIR false
-#define INVERT_E0_DIR false
+#define INVERT_E0_DIR true
 
 // 断料检测 默认关闭
 #define FILAMENT_RUNOUT_SENSOR
