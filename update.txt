@@ -1,3 +1,7 @@
+MacOS 下的刷机命令:
+avrdude -V -p atmega2560 -C avrdude.conf -c wiring -b 115200 -D -P /dev/cu.wchusbserial1440 -U flash:w:firmware.hex:i
+
+
 2021-06-21  @cytown 重新整理代码，增加了一些huhuzhu的配置
 2021-06-21  @cytown 增加了关机支持，并且增加了关机确认和关机提示音
 2021-06-23  @cytown 修复大屏幕下选择高亮显示不全的bug
