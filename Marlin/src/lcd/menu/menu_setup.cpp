@@ -56,10 +56,10 @@ void menu_invert_dir() {
   START_MENU();
   BACK_ITEM(MSG_SETUP);
 
-  EDIT_ITEM(bools, MSG_X_INVERT_DIR, &planner.settings.invert_dir[X_AXIS], update_invert_dir, true, GET_TEXT(MSG_LCD_Backward), GET_TEXT(MSG_LCD_Forward));  // X电机方向
-  EDIT_ITEM(bools, MSG_Y_INVERT_DIR, &planner.settings.invert_dir[Y_AXIS], update_invert_dir, true, GET_TEXT(MSG_LCD_Backward), GET_TEXT(MSG_LCD_Forward));  // Y电机方向
-  EDIT_ITEM(bools, MSG_Z_INVERT_DIR, &planner.settings.invert_dir[Z_AXIS], update_invert_dir, true, GET_TEXT(MSG_LCD_Backward), GET_TEXT(MSG_LCD_Forward));  // Z电机方向
-  EDIT_ITEM(bools, MSG_E_INVERT_DIR, &planner.settings.invert_dir[E_AXIS], update_invert_dir, true, GET_TEXT(MSG_LCD_Backward), GET_TEXT(MSG_LCD_Forward));  // 挤出机电机方向
+  EDIT_ITEM(bools, MSG_X_INVERT_DIR, &planner.extras.invert_dir[X_AXIS], update_invert_dir, true, GET_TEXT(MSG_LCD_Backward), GET_TEXT(MSG_LCD_Forward));  // X电机方向
+  EDIT_ITEM(bools, MSG_Y_INVERT_DIR, &planner.extras.invert_dir[Y_AXIS], update_invert_dir, true, GET_TEXT(MSG_LCD_Backward), GET_TEXT(MSG_LCD_Forward));  // Y电机方向
+  EDIT_ITEM(bools, MSG_Z_INVERT_DIR, &planner.extras.invert_dir[Z_AXIS], update_invert_dir, true, GET_TEXT(MSG_LCD_Backward), GET_TEXT(MSG_LCD_Forward));  // Z电机方向
+  EDIT_ITEM(bools, MSG_E_INVERT_DIR, &planner.extras.invert_dir[E_AXIS], update_invert_dir, true, GET_TEXT(MSG_LCD_Backward), GET_TEXT(MSG_LCD_Forward));  // 挤出机电机方向
 
   END_MENU();
 }
@@ -147,7 +147,7 @@ void menu_setup() {
   //电机方向子菜单
   SUBMENU(MSG_INVERT_DIR, menu_invert_dir);
   //旋钮方向修改
-  EDIT_ITEM(bools, MSG_ENCODER_DIR, &ui.encoder_dir, update_encoder_dir, true, GET_TEXT(MSG_LCD_Backward), GET_TEXT(MSG_LCD_Forward));
+  EDIT_ITEM(bools, MSG_ENCODER_DIR, &planner.extras.encoder_dir, update_encoder_dir, true, GET_TEXT(MSG_LCD_Backward), GET_TEXT(MSG_LCD_Forward));
   //限位状态子菜单
   SUBMENU(MSG_ENDSTOP_STATUS, menu_endstop_status);
   //软限位开关

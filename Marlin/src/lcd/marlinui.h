@@ -623,11 +623,6 @@ public:
 
     static uint32_t encoderPosition;
 
-#ifdef MiniTreeFunc // MiniTree.h
-    // MiniTree 小树定制固件新增一个变量encoder_dir
-    bool encoder_dir;
-#endif
-
     #define ENCODERBASE (TERN(REVERSE_ENCODER_DIRECTION, -1, +1))
 
     #if EITHER(REVERSE_MENU_DIRECTION, REVERSE_SELECT_DIRECTION)

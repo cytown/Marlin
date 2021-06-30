@@ -486,11 +486,10 @@ void Stepper::set_directions() {
   // MiniTree 小树定制固件修改后的代码如下
   #define SET_STEP_DIR(A) \
     if (motor_direction(_AXIS(A))) { \
-      A##_APPLY_DIR(planner.settings.invert_dir[_AXIS(A)], false); \
+      A##_APPLY_DIR(planner.extras.invert_dir[_AXIS(A)], false); \
       count_direction[_AXIS(A)] = -1; \
-    } \
-    else { \
-      A##_APPLY_DIR(!planner.settings.invert_dir[_AXIS(A)], false); \
+    } else { \
+      A##_APPLY_DIR(!planner.extras.invert_dir[_AXIS(A)], false); \
       count_direction[_AXIS(A)] = 1; \
     }
 #endif // MiniTreeFunc
@@ -546,11 +545,10 @@ void Stepper::set_directions() {
 
   // MiniTree 小树定制固件 新增小树专用挤出机方向修改，注意：混色头会出现bug
   if (motor_direction(E_AXIS)) {
-    E0_DIR_WRITE(planner.settings.invert_dir[_AXIS(E)]);
+    E0_DIR_WRITE(planner.extras.invert_dir[_AXIS(E)]);
     count_direction[E_AXIS] = -1;
-  }
-  else {
-    E0_DIR_WRITE(!planner.settings.invert_dir[_AXIS(E)]);
+  } else {
+    E0_DIR_WRITE(!planner.extras.invert_dir[_AXIS(E)]);
     count_direction[E_AXIS] = 1;
   }
 #endif // MiniTreeFunc

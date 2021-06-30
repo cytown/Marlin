@@ -132,6 +132,11 @@ uint8_t Planner::delay_before_delivering;       // This counter delays delivery 
 
 planner_settings_t Planner::settings;           // Initialized by settings.load()
 
+#ifdef MiniTreeFunc // MiniTree.h
+  // MiniTree 小树定制固件设置
+  minitree_extra_t Planner::extras;             // Initialized by settings.load()
+#endif // MiniTreeFunc
+
 #if ENABLED(LASER_POWER_INLINE)
   laser_state_t Planner::laser_inline;          // Current state for blocks
 #endif

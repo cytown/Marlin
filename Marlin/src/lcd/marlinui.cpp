@@ -1273,7 +1273,7 @@ void MarlinUI::update() {
       //#define ENCODER_SPIN(_E1, _E2) switch (lastEncoderBits) { case _E1: encoderDiff += encoderDirection; break; case _E2: encoderDiff -= encoderDirection; }
       // MiniTree 小树定制固件，新增变量来决定encoderdirection，并重写ENCODER_SPIN，将encoderDirection替换成新增的变量。
       uint8_t realdirection = encoderDirection;
-      if(ui.encoder_dir){
+      if (planner.extras.encoder_dir) {
         realdirection = -realdirection;
       }
       #define ENCODER_SPIN(_E1, _E2) switch (lastEncoderBits) { case _E1: encoderDiff += realdirection; break; case _E2: encoderDiff -= realdirection; }
