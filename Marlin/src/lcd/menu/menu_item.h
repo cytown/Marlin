@@ -170,41 +170,25 @@ class MenuItem_bool : public MenuEditItemBase {
 };
 
 #ifdef MiniTreeFunc // MiniTree.h
-// MiniTree 小树定制固件 新增一个菜单选项类型，用于电机方向的正反设定
-class MenuItem_bool2 : public MenuEditItemBase {
+
+class MenuItem_bools : public MenuEditItemBase {
   public:
-    FORCE_INLINE static void draw(const bool sel, const uint8_t row, PGM_P const pstr, const bool onoff) {
-      MenuEditItemBase::draw(sel, row, pstr, onoff ? GET_TEXT(MSG_LCD_Backward) : GET_TEXT(MSG_LCD_Forward), true);
+    FORCE_INLINE static void _draw(const bool sel, const uint8_t row, PGM_P const pstr, const bool onoff, PGM_P const stron=nullptr, PGM_P const stroff=nullptr) {
+      MenuEditItemBase::draw(sel, row, pstr, onoff ? (stron ? stron : GET_TEXT(MSG_LCD_ON)) : (stroff ? stroff : GET_TEXT(MSG_LCD_OFF)), true);
     }
-    FORCE_INLINE static void draw(const bool sel, const uint8_t row, PGM_P const pstr, bool * const data, ...) {
-      draw(sel, row, pstr, *data);
+    FORCE_INLINE static void draw(const bool sel, const uint8_t row, PGM_P const pstr, bool * const data, const screenFunc_t=nullptr, bool=false, const char * stron=nullptr, const char * stroff=nullptr, ...) {
+      _draw(sel, row, pstr, *data, stron, stroff);
     }
-    FORCE_INLINE static void draw(const bool sel, const uint8_t row, PGM_P const pstr, PGM_P const, bool (*pget)(), ...) {
-      draw(sel, row, pstr, pget());
+    FORCE_INLINE static void draw(const bool sel, const uint8_t row, PGM_P const pstr, PGM_P const, bool (*pget)(), const screenFunc_t=nullptr, bool=false, const char * stron=nullptr, const char * stroff=nullptr, ...) {
+      _draw(sel, row, pstr, pget(), stron, stroff);
     }
-    static void action(PGM_P const pstr, bool * const ptr, const screenFunc_t callbackFunc=nullptr) {
-      *ptr ^= true; ui.refresh();
+    static void action(PGM_P const pstr, bool * const ptr, const screenFunc_t callbackFunc=nullptr, bool op=false, ...) {
+      if (op) *ptr ^= true;
       if (callbackFunc) (*callbackFunc)();
+      ui.refresh();
     }
 };
 
-// MiniTree 小树定制固件 新增一个菜单选项类型，用于显示不可编辑的项目
-class MenuItem_bool3 : public MenuEditItemBase {
-  public:
-    FORCE_INLINE static void draw(const bool sel, const uint8_t row, PGM_P const pstr, const bool onoff) {
-      MenuEditItemBase::draw(sel, row, pstr, onoff ? GET_TEXT(MSG_LCD_ON) : GET_TEXT(MSG_LCD_OFF), true);
-    }
-    FORCE_INLINE static void draw(const bool sel, const uint8_t row, PGM_P const pstr, bool * const data, ...) {
-      draw(sel, row, pstr, *data);
-    }
-    FORCE_INLINE static void draw(const bool sel, const uint8_t row, PGM_P const pstr, PGM_P const, bool (*pget)(), ...) {
-      draw(sel, row, pstr, pget());
-    }
-    static void action(PGM_P const pstr, bool * const ptr, const screenFunc_t callbackFunc=nullptr) {
-      ui.refresh();
-      if (callbackFunc) (*callbackFunc)();
-    }
-};
 #endif
 
 /**
