@@ -33,6 +33,11 @@
 #include "../module/stepper/indirection.h"
 #include "../MarlinCore.h"
 
+#ifdef MiniTreeFunc // MiniTree.h
+#include "../module/planner.h"
+#endif // MiniTreeFunc
+
+
 #if ENABLED(PS_OFF_SOUND)
   #include "../libs/buzzer.h"
 #endif
@@ -125,7 +130,10 @@ void Power::check(const bool pause) {
     nextPowerCheck = now + 2500UL;
     if (is_power_needed())
       power_on();
-    else if (!lastPowerOn || (POWER_TIMEOUT > 0 && ELAPSED(now, lastPowerOn + SEC_TO_MS(POWER_TIMEOUT))))
+#ifdef MiniTreeFunc // MiniTree.h
+    //else if (!lastPowerOn || (POWER_TIMEOUT > 0 && ELAPSED(now, lastPowerOn + SEC_TO_MS(POWER_TIMEOUT))))
+    else if (!lastPowerOn || (POWER_TIMEOUT > 0 && !planner.extras.disable_power_off && ELAPSED(now, lastPowerOn + SEC_TO_MS(POWER_TIMEOUT))))
+#endif // MiniTreeFunc
       power_off();
   }
 }

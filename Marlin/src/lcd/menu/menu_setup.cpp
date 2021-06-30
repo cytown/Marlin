@@ -144,16 +144,18 @@ void menu_setup() {
   START_MENU();
 
   BACK_ITEM(MSG_MAIN);
-  //电机方向子菜单
+  // 电机方向子菜单
   SUBMENU(MSG_INVERT_DIR, menu_invert_dir);
-  //旋钮方向修改
+  // 旋钮方向修改
   EDIT_ITEM(bools, MSG_ENCODER_DIR, &planner.extras.encoder_dir, update_encoder_dir, true, GET_TEXT(MSG_LCD_Backward), GET_TEXT(MSG_LCD_Forward));
-  //限位状态子菜单
+  // 限位状态子菜单
   SUBMENU(MSG_ENDSTOP_STATUS, menu_endstop_status);
-  //软限位开关
+  // 软限位开关
   EDIT_ITEM(bool, MSG_LCD_SOFT_ENDSTOPS, &soft_endstop._enabled);
-  //冷挤出保护开关
+  // 冷挤出保护开关
   EDIT_ITEM(bool, MSG_ALLOW_COLD_EXTRUDE, &thermalManager.allow_cold_extrude);
+  // 自动关闭电源
+  EDIT_ITEM(bools, MSG_AUTO_POWER_OFF, &planner.extras.disable_power_off, nullptr, true, GET_TEXT(MSG_LCD_OFF), GET_TEXT(MSG_LCD_ON));
 
   END_MENU();
 }
