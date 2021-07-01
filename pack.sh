@@ -10,6 +10,7 @@ mkdir $tmp
 cp .pio/build/mega2560/firmware.hex $tmp
 cp ~/.platformio/packages/tool-avrdude/avrdude.conf $tmp
 cp update.txt $tmp
+cp flash.sh $tmp
 
 d=`date "+%y%m%d"`
 
