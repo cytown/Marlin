@@ -42,7 +42,7 @@
  * version was tagged.
  */
 //#define STRING_DISTRIBUTION_DATE "2021-06-27"
-#define STRING_DISTRIBUTION_DATE "2021-06-30"
+#define STRING_DISTRIBUTION_DATE "2021-07-01"
 
 /**
  * Defines a generic printer name to be output to the LCD after booting Marlin.
