@@ -48,7 +48,6 @@
 // MiniTree 小树定制固件，修改电机方向后立刻应用，并保存到eeprom
 void update_invert_dir() {
 	  stepper.set_directions();
-	  ui.store_settings();
 }
 // MiniTree 小树定制固件 电机方向菜单
 void menu_invert_dir() {
@@ -62,11 +61,6 @@ void menu_invert_dir() {
   EDIT_ITEM(bools, MSG_E_INVERT_DIR, &planner.extras.invert_dir[E_AXIS], update_invert_dir, true, GET_TEXT(MSG_LCD_Backward), GET_TEXT(MSG_LCD_Forward));  // 挤出机电机方向
 
   END_MENU();
-}
-
-// MiniTree 小树定制固件，修改旋钮方向后立刻保存到eeprom
-void update_encoder_dir() {
-	  ui.store_settings();
 }
 
 #ifdef USE_XMIN_PLUG
@@ -147,7 +141,7 @@ void menu_setup() {
   // 电机方向子菜单
   SUBMENU(MSG_INVERT_DIR, menu_invert_dir);
   // 旋钮方向修改
-  EDIT_ITEM(bools, MSG_ENCODER_DIR, &planner.extras.encoder_dir, update_encoder_dir, true, GET_TEXT(MSG_LCD_Backward), GET_TEXT(MSG_LCD_Forward));
+  EDIT_ITEM(bools, MSG_ENCODER_DIR, &planner.extras.encoder_dir, nullptr, true, GET_TEXT(MSG_LCD_Backward), GET_TEXT(MSG_LCD_Forward));
   // 限位状态子菜单
   SUBMENU(MSG_ENDSTOP_STATUS, menu_endstop_status);
   // 软限位开关
