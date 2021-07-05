@@ -631,6 +631,7 @@ namespace Language_zh_CN {
   PROGMEM Language_Str MSG_X_MAX_STATUS                    = _UxGT("Xmax限位状态");
   PROGMEM Language_Str MSG_Y_MAX_STATUS                    = _UxGT("Ymax限位状态");
   PROGMEM Language_Str MSG_Z_MAX_STATUS                    = _UxGT("ZMAX限位状态");
+  PROGMEM Language_Str MSG_RUNOUT_STATUS                   = _UxGT("断料开关状态");
   PROGMEM Language_Str MSG_AUTO_POWER_OFF                  = _UxGT("自动关闭电源");
 }
 

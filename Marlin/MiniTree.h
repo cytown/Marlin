@@ -315,8 +315,10 @@
 
 // 断料检测 默认关闭
 #define FILAMENT_RUNOUT_SENSOR
+// 缺省使用D4昨晚断料检测的脚位，这里使用ZMax作为检测脚位--CoreXY
+#define FIL_RUNOUT_PIN       19
 // 若失败 删除注释使用高电平
-//#define FIL_RUNOUT_STATE     HIGH
+#define FIL_RUNOUT_STATE     HIGH
 
 // 小树定制固件 开启z安全归零设置，防止喷嘴刮花平台
 #define Z_SAFE_HOMING

@@ -44,6 +44,9 @@
 #define READ_STOP_STATUS(V, T) READ(PIN(V, T)) != INVERT(V, T)
 #define UPDATE_STOP_STATUS(V, T) _##V##_##T##_status = READ_STOP_STATUS(V, T)
 #define MENU_STOP_STATUS(V, T) EDIT_ITEM(bools, MSG(V, T), &_##V##_##T##_status, refresh_endstops, false)
+#if ENABLED(FILAMENT_RUNOUT_SENSOR)
+#define READ_FILAMENT_STATUS() READ(FIL_RUNOUT1_PIN) != FIL_RUNOUT1_STATE
+#endif
 
 // MiniTree 小树定制固件，修改电机方向后立刻应用，并保存到eeprom
 void update_invert_dir() {
@@ -81,6 +84,9 @@ void menu_invert_dir() {
 #ifdef USE_ZMAX_PLUG
   static bool UPDATE_STOP_STATUS(Z, MAX);
 #endif
+#if ENABLED(FILAMENT_RUNOUT_SENSOR)
+  static bool fil_runout_status = READ_FILAMENT_STATUS();
+#endif
 
 // 刷新限位状态
 void refresh_endstops(){
@@ -102,6 +108,9 @@ void refresh_endstops(){
   #ifdef USE_ZMAX_PLUG
     UPDATE_STOP_STATUS(Z, MAX);
   #endif
+  #if ENABLED(FILAMENT_RUNOUT_SENSOR)
+    fil_runout_status = READ_FILAMENT_STATUS();
+  #endif
 }
 
 // MiniTree 小树定制固件 限位状态菜单
@@ -118,7 +127,6 @@ void menu_endstop_status() {
   #endif
   #ifdef USE_YMIN_PLUG
     MENU_STOP_STATUS(Y, MIN);
-    EDIT_ITEM(bool3, MSG_Y_MIN_STATUS, &y_min_status, refresh_endstops);
   #endif
   #ifdef USE_YMAX_PLUG
     MENU_STOP_STATUS(Y, MAX);
@@ -128,6 +136,9 @@ void menu_endstop_status() {
   #endif
   #ifdef USE_ZMAX_PLUG
     MENU_STOP_STATUS(Z, MAX);
+  #endif
+  #if ENABLED(FILAMENT_RUNOUT_SENSOR)
+    EDIT_ITEM(bools, MSG_RUNOUT_STATUS, &fil_runout_status, refresh_endstops, false);
   #endif
 
   END_MENU();
