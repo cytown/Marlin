@@ -70,7 +70,7 @@
 // Configuration.h
 //=======================
 
-#define STRING_CONFIG_H_AUTHOR "(XenoXue,MiniTreeFirmware)"
+#define STRING_CONFIG_H_AUTHOR "(XenoXue,Cytown MiniTree)"
 
 #define CUSTOM_VERSION_FILE Version.h
 
@@ -87,7 +87,6 @@
 // 小树定制固件，定义机型
 // 自定义机器尺寸
 #if MiniTreeMachine == 0  // Tx
-  #define MiniTree_Tx
   #define CUSTOM_MACHINE_NAME "MiniTree Tx"
 
   #define X_BED_SIZE 120
@@ -107,7 +106,6 @@
   #define DEFAULT_bedKd 852.36
 
 #elif MiniTreeMachine == 1  // CoreXY
-  #define MiniTree_Corexy
   #define CUSTOM_MACHINE_NAME "MiniTree CoreXY"
 
   #define X_BED_SIZE 310
@@ -151,7 +149,6 @@
   #define NOZZLE_PARK_POINT { (X_MIN_POS + 10), (Y_MAX_POS - 10), 20 }
 
 #elif MiniTreeMachine == 2  // i3
-  #define MiniTree_i3
   #define CUSTOM_MACHINE_NAME "MiniTree i3"
 
   #define X_BED_SIZE 220
@@ -318,7 +315,7 @@
 // 缺省使用D4昨晚断料检测的脚位，这里使用ZMax作为检测脚位--CoreXY
 #define FIL_RUNOUT_PIN       19
 // 若失败 删除注释使用高电平
-#define FIL_RUNOUT_STATE     HIGH
+//#define FIL_RUNOUT_STATE     HIGH
 
 // 小树定制固件 开启z安全归零设置，防止喷嘴刮花平台
 #define Z_SAFE_HOMING

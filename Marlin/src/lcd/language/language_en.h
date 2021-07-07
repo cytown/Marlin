@@ -765,6 +765,8 @@ namespace Language_en {
   PROGMEM Language_Str MSG_Y_MAX_STATUS                    = _UxGT("Y max Endstop");
   PROGMEM Language_Str MSG_Z_MAX_STATUS                    = _UxGT("Z max Endstop");
   PROGMEM Language_Str MSG_RUNOUT_STATUS                   = _UxGT("Filament Runout Status");
+  PROGMEM Language_Str MSG_RUNOUT_YES                      = _UxGT("Runout");
+  PROGMEM Language_Str MSG_RUNOUT_NO                       = _UxGT("OK");
   PROGMEM Language_Str MSG_AUTO_POWER_OFF                  = _UxGT("Auto Power Off");
 }
 
