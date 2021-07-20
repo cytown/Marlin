@@ -177,7 +177,7 @@
 #define BED_MINTEMP        -5
 
 // 最高温度
-#define HEATER_0_MAXTEMP 250  //小树定制固件 原装加热棒和热敏 最高耐热250度
+#define HEATER_0_MAXTEMP 265  //小树定制固件 原装加热棒和热敏 最高耐热250度，所以设置成+HOTEND_OVERSHOOT=265
 
 // huhuzhu use:
 //#define PID_K1 0.75

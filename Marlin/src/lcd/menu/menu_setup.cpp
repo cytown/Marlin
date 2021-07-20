@@ -38,6 +38,10 @@
 
 #ifdef MiniTreeFunc // MiniTree.h
 
+#if HAS_FILAMENT_SENSOR
+  #include "../../feature/runout.h"
+#endif
+
 #define PIN(V, T) V##_##T##_PIN
 #define MSG(V, T) MSG_##V##_##T##_STATUS
 #define INVERT(V, T) V##_##T##_ENDSTOP_INVERTING
@@ -137,8 +141,10 @@ void menu_endstop_status() {
   #ifdef USE_ZMAX_PLUG
     MENU_STOP_STATUS(Z, MAX);
   #endif
-  #if ENABLED(FILAMENT_RUNOUT_SENSOR)
-    EDIT_ITEM(bools, MSG_RUNOUT_STATUS, &fil_runout_status, refresh_endstops, false, GET_TEXT(MSG_RUNOUT_NO), GET_TEXT(MSG_RUNOUT_YES));
+  #if HAS_FILAMENT_SENSOR
+    if (runout.enabled) {
+      EDIT_ITEM(bools, MSG_RUNOUT_STATUS, &runout.filament_ran_out, refresh_endstops, false, GET_TEXT(MSG_RUNOUT_NO), GET_TEXT(MSG_RUNOUT_YES));
+    }
   #endif
 
   END_MENU();
