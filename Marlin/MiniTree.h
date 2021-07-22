@@ -232,33 +232,43 @@
 #define DETECT_BROKEN_ENDSTOP
 
 // 小树定制固件，最高加速度，修改了挤出机的加速度，可以支持更高的回抽速度，用于改善拉丝
-#define DEFAULT_MAX_ACCELERATION      { 3000, 3000, 50, 10000 }
+// XenoXue use:
+//#define DEFAULT_MAX_ACCELERATION      { 3000, 3000, 50, 10000 }
+// Tuba use:
+#define DEFAULT_MAX_ACCELERATION      { 3000, 3000, 100, 10000 }
 // huhuzhu use:
 //#define DEFAULT_MAX_ACCELERATION      { 3000, 3000, 100, 5000 }
 
 // 加速度 影响振纹 及回抽拉丝
 // XenoXue use: 1000
+// Tuba use:    2000
 // huhuzhu use: 3000
 #define DEFAULT_ACCELERATION          1000    // XYZE打印加速度
-#define DEFAULT_RETRACT_ACCELERATION  1000    // E回抽加速度
-#define DEFAULT_TRAVEL_ACCELERATION   1000    // XYZ空驶加速度
+#define DEFAULT_RETRACT_ACCELERATION  2000    // E回抽加速度
+#define DEFAULT_TRAVEL_ACCELERATION   2000    // XYZ空驶加速度
 
 // 小树定制 抖动速度
 //#define CLASSIC_JERK
 #ifdef CLASSIC_JERK
   // XenoXue use: 5.0 5.0 0.3
   // huhuzhu use: 10.0 10.0 0.3
-  #define DEFAULT_XJERK 5.0
-  #define DEFAULT_YJERK 5.0
+  // Tuba use: 10.0 10.0 0.3
+  #define DEFAULT_XJERK 10.0
+  #define DEFAULT_YJERK 10.0
   #define DEFAULT_ZJERK  0.3
 #endif
 
 // 曲线增强 路径转贝赛尔流畅度高 但需要占用算力，有群友反映直角转弯堆料
 #define S_CURVE_ACCELERATION
 
-// BLtouch/3DtouchPIN 默认为D11针脚
+// BLtouch/3DtouchPIN
 #ifdef BLTOUCH
-  #define Z_MIN_PROBE_PIN 11 // 自定义PIN针脚
+  // XenoXue: 默认为D11针脚
+  //#define Z_MIN_PROBE_PIN 11
+  // Tuba: 探针使用端口 X_MAX （2pin黑=负极GND 白=XMAX D2端口）
+  #define Z_MIN_PROBE_PIN   2
+  #define SERVO0_PIN       21  //舵机使用端口 （3pin 绿=负极 红=5V 橙=D21）
+  #define GRID_MAX_POINTS_X 5  //调平探测点数量
 #endif
 
 #ifdef TOUCH_MI_PROBE
@@ -291,9 +301,20 @@
    *     |    [-]    |
    *原点→O--  前方 --+
   */
-  #define NOZZLE_TO_PROBE_OFFSET { -8, 3, -2.5 }
+  // Tuba use:
+  #define NOZZLE_TO_PROBE_OFFSET { 43, 9, 0 } //探针偏移调整 相对于喷头位置
+  // XenoXue use:
+  //#define NOZZLE_TO_PROBE_OFFSET { -8, 3, -2.5 }
+
+  #define XY_PROBE_FEEDRATE (80*60)// 调平时的速度 (133*60)
 
   #define AUTO_BED_LEVELING_BILINEAR //探针模式
+
+  #define PROBING_MARGIN_LEFT PROBING_MARGIN
+  #define PROBING_MARGIN_RIGHT PROBING_MARGIN
+  #define PROBING_MARGIN_FRONT PROBING_MARGIN
+  #define PROBING_MARGIN_BACK PROBING_MARGIN
+
 #else
   // 禁止使用Z_min限位作为Z探针位置，如果使用自动调平需要禁用这个
   #define Z_MIN_PROBE_DISABLE
@@ -463,6 +484,14 @@
 // 小树定制固件，开启暂停移开喷头的高级功能  断料检测也需要开启此项
 #define ADVANCED_PAUSE_FEATURE
 
+// 这里注意，如果哪个驱动不是TMC2208/2209，就要注释掉哪个
+#if _DRIVER_TYPE == TMC2208 || _DRIVER_TYPE == TMC2209
+  #define X_CURRENT       650
+  #define Y_CURRENT       650
+  #define Z_CURRENT       700
+  #define Z2_CURRENT      700
+  #define E0_CURRENT      700
+#endif
 
 #undef DisplayScreen
 #undef MiniTreeMachine
