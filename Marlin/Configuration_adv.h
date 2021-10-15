@@ -21,6 +21,8 @@
  */
 #pragma once
 
+#include "MiniTree.h"
+
 /**
  * Configuration_adv.h
  *
@@ -605,7 +607,9 @@
  * Multiple extruders can be assigned to the same pin in which case
  * the fan will turn on when any selected extruder is above the threshold.
  */
+#ifndef E0_AUTO_FAN_PIN // MiniTree.h
 #define E0_AUTO_FAN_PIN -1
+#endif
 #define E1_AUTO_FAN_PIN -1
 #define E2_AUTO_FAN_PIN -1
 #define E3_AUTO_FAN_PIN -1
@@ -747,7 +751,9 @@
 //
 // For Z set the number of stepper drivers
 //
+#ifndef NUM_Z_STEPPER_DRIVERS // MiniTree.h
 #define NUM_Z_STEPPER_DRIVERS 1   // (1-4) Z options change based on how many
+#endif
 
 #if NUM_Z_STEPPER_DRIVERS > 1
   // Enable if Z motor direction signals are the opposite of Z1
@@ -1359,7 +1365,9 @@
   //#define LCD_TIMEOUT_TO_STATUS 15000
 
   #if ENABLED(SHOW_BOOTSCREEN)
+#ifndef BOOTSCREEN_TIMEOUT // MiniTree.h
     #define BOOTSCREEN_TIMEOUT 4000      // (ms) Total Duration to display the boot screen(s)
+#endif
     #if EITHER(HAS_MARLINUI_U8GLIB, TFT_COLOR_UI)
       #define BOOT_MARLIN_LOGO_SMALL     // Show a smaller Marlin logo on the Boot Screen (saving lots of flash)
     #endif
@@ -1427,7 +1435,9 @@
 
   #define SD_PROCEDURE_DEPTH 1              // Increase if you need more nested M32 calls
 
+#ifndef SD_FINISHED_STEPPERRELEASE // MiniTree.h
   #define SD_FINISHED_STEPPERRELEASE true   // Disable steppers when SD Print is finished
+#endif
   #define SD_FINISHED_RELEASECOMMAND "M84"  // Use "M84XYE" to keep Z enabled so your bed stays in place
 
   // Reverse SD sort to show "more recent" files first, according to the card's FAT.
@@ -1459,7 +1469,9 @@
    */
   //#define POWER_LOSS_RECOVERY
   #if ENABLED(POWER_LOSS_RECOVERY)
+#ifndef PLR_ENABLED_DEFAULT // MiniTree.h
     #define PLR_ENABLED_DEFAULT   false // Power Loss Recovery enabled by default. (Set with 'M413 Sn' & M500)
+#endif
     //#define BACKUP_POWER_SUPPLY       // Backup power / UPS to move the steppers on power loss
     //#define POWER_LOSS_ZRAISE       2 // (mm) Z axis raise on resume (on power loss with UPS)
     //#define POWER_LOSS_PIN         44 // Pin to detect power loss. Set to -1 to disable default pin on boards without module.
@@ -1992,7 +2004,9 @@
 //#define LIN_ADVANCE
 #if ENABLED(LIN_ADVANCE)
   //#define EXTRA_LIN_ADVANCE_K // Enable for second linear advance constants
+#ifndef LIN_ADVANCE_K // MiniTree.h
   #define LIN_ADVANCE_K 0.22    // Unit: mm compression per 1mm/s extruder speed
+#endif
   //#define LA_DEBUG            // If enabled, this will generate debug information output over USB.
   //#define EXPERIMENTAL_SCURVE // Enable this option to permit S-Curve Acceleration
   //#define ALLOW_LOW_EJERK     // Allow a DEFAULT_EJERK value of <10. Recommended for direct drive hotends.
@@ -2684,7 +2698,9 @@
   #define INTERPOLATE      true
 
   #if AXIS_IS_TMC(X)
+#ifndef X_CURRENT // MiniTree.h
     #define X_CURRENT       800        // (mA) RMS current. Multiply by 1.414 for peak current.
+#endif
     #define X_CURRENT_HOME  X_CURRENT  // (mA) RMS current for sensorless homing
     #define X_MICROSTEPS     16        // 0..256
     #define X_RSENSE          0.11
@@ -2704,7 +2720,9 @@
   #endif
 
   #if AXIS_IS_TMC(Y)
+#ifndef Y_CURRENT // MiniTree.h
     #define Y_CURRENT       800
+#endif
     #define Y_CURRENT_HOME  Y_CURRENT
     #define Y_MICROSTEPS     16
     #define Y_RSENSE          0.11
@@ -2724,7 +2742,9 @@
   #endif
 
   #if AXIS_IS_TMC(Z)
+#ifndef Z_CURRENT // MiniTree.h
     #define Z_CURRENT       800
+#endif
     #define Z_CURRENT_HOME  Z_CURRENT
     #define Z_MICROSTEPS     16
     #define Z_RSENSE          0.11
@@ -2734,7 +2754,9 @@
   #endif
 
   #if AXIS_IS_TMC(Z2)
+#ifndef Z_CURRENT // MiniTree.h
     #define Z2_CURRENT      800
+#endif
     #define Z2_CURRENT_HOME Z2_CURRENT
     #define Z2_MICROSTEPS    Z_MICROSTEPS
     #define Z2_RSENSE         0.11
@@ -2794,7 +2816,9 @@
   #endif
 
   #if AXIS_IS_TMC(E0)
+#ifndef E0_CURRENT // MiniTree.h
     #define E0_CURRENT      800
+#endif
     #define E0_MICROSTEPS    16
     #define E0_RSENSE         0.11
     #define E0_CHAIN_POS     -1

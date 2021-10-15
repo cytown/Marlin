@@ -577,6 +577,8 @@ void Stepper::set_directions() {
 
   DIR_WAIT_BEFORE();
 
+#ifdef MiniTreeFunc // MiniTree.h
+/* MiniTree 小树定制固件，修改一下这段代码，用于即时修改xyz的电机方向
   #define SET_STEP_DIR(A)                       \
     if (motor_direction(_AXIS(A))) {            \
       A##_APPLY_DIR(INVERT_##A##_DIR, false);   \
@@ -586,6 +588,17 @@ void Stepper::set_directions() {
       A##_APPLY_DIR(!INVERT_##A##_DIR, false);  \
       count_direction[_AXIS(A)] = 1;            \
     }
+*/
+  // MiniTree 小树定制固件修改后的代码如下
+  #define SET_STEP_DIR(A) \
+    if (motor_direction(_AXIS(A))) { \
+      A##_APPLY_DIR(planner.extras.invert_dir[_AXIS(A)], false); \
+      count_direction[_AXIS(A)] = -1; \
+    } else { \
+      A##_APPLY_DIR(!planner.extras.invert_dir[_AXIS(A)], false); \
+      count_direction[_AXIS(A)] = 1; \
+    }
+#endif // MiniTreeFunc
 
   TERN_(HAS_X_DIR, SET_STEP_DIR(X)); // A
   TERN_(HAS_Y_DIR, SET_STEP_DIR(Y)); // B
@@ -594,6 +607,8 @@ void Stepper::set_directions() {
   TERN_(HAS_J_DIR, SET_STEP_DIR(J));
   TERN_(HAS_K_DIR, SET_STEP_DIR(K));
 
+#ifdef MiniTreeFunc // MiniTree.h
+  /* 注释掉原本挤出机方向修改的代码
   #if DISABLED(LIN_ADVANCE)
     #if ENABLED(MIXING_EXTRUDER)
        // Because this is valid for the whole block we don't know
@@ -617,6 +632,17 @@ void Stepper::set_directions() {
       }
     #endif
   #endif // !LIN_ADVANCE
+  */
+
+  // MiniTree 小树定制固件 新增小树专用挤出机方向修改，注意：混色头会出现bug
+  if (motor_direction(E_AXIS)) {
+    E0_DIR_WRITE(planner.extras.invert_dir[_AXIS(E)]);
+    count_direction[E_AXIS] = -1;
+  } else {
+    E0_DIR_WRITE(!planner.extras.invert_dir[_AXIS(E)]);
+    count_direction[E_AXIS] = 1;
+  }
+#endif // MiniTreeFunc
 
   #if HAS_L64XX
     if (L64XX_OK_to_power_up) { // OK to send the direction commands (which powers up the L64XX steppers)

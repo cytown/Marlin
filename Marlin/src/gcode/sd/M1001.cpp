@@ -83,6 +83,9 @@ void GcodeSuite::M1001() {
   // Stop the print job timer
   process_subcommands_now(F("M77"));
 
+  // Stop all heaters (hot bed)
+  IF_DISABLED(SD_ABORT_NO_COOLDOWN, thermalManager.disable_all_heaters());
+
   // Set the progress bar "done" state
   TERN_(LCD_SET_PROGRESS_MANUALLY, ui.set_progress_done());
 

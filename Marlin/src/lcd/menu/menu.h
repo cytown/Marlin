@@ -201,6 +201,10 @@ void menu_move();
   void menu_media();
 #endif
 
+#ifdef MiniTreeFunc // MiniTree.h
+void menu_endstop_status();
+#endif
+
 ////////////////////////////////////////////
 //////// Menu Item Helper Functions ////////
 ////////////////////////////////////////////

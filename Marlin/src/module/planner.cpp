@@ -128,6 +128,11 @@ uint8_t Planner::delay_before_delivering;       // This counter delays delivery 
 
 planner_settings_t Planner::settings;           // Initialized by settings.load()
 
+#ifdef MiniTreeFunc // MiniTree.h
+  // MiniTree 小树定制固件设置
+  minitree_extra_t Planner::extras;             // Initialized by settings.load()
+#endif // MiniTreeFunc
+
 #if ENABLED(LASER_POWER_INLINE)
   laser_state_t Planner::laser_inline;          // Current state for blocks
 #endif
@@ -196,7 +201,11 @@ skew_factor_t Planner::skew_factor; // Initialized by settings.load()
   celsius_t Planner::autotemp_max = 250,
             Planner::autotemp_min = 210;
   float Planner::autotemp_factor = 0.1f;
-  bool Planner::autotemp_enabled = false;
+#ifdef MiniTreeFunc // MiniTree.h
+  //bool Planner::autotemp_enabled = false;
+  // MiniTree 小树定制固件 自动控温默认改为开启
+  bool Planner::autotemp_enabled = true;
+#endif
 #endif
 
 // private:

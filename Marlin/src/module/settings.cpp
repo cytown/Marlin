@@ -537,6 +537,11 @@ typedef struct SettingsDataStruct {
     uint8_t ui_language;                                // M414 S
   #endif
 
+#ifdef MiniTreeFunc // MiniTree.h
+  // MiniTree 小树定制固件设置
+  minitree_extra_t extra;
+#endif // MiniTreeFunc
+
 } SettingsData;
 
 //static_assert(sizeof(SettingsData) <= MARLIN_EEPROM_SIZE, "EEPROM too small to contain SettingsData!");
@@ -1519,6 +1524,11 @@ void MarlinSettings::postprocess() {
       EEPROM_WRITE(ui.language);
     #endif
 
+#ifdef MiniTreeFunc // MiniTree.h
+    // MiniTree 小树定制固件设置保存到EEPROM
+    EEPROM_WRITE(planner.extras);
+#endif // MiniTreeFunc
+
     //
     // Report final CRC and Data Size
     //
@@ -2463,6 +2473,18 @@ void MarlinSettings::postprocess() {
       }
       #endif
 
+#ifdef MiniTreeFunc // MiniTree.h
+        // MiniTree 小树定制固件，读取设置
+        // 电机方向
+        bool tmp4[DISTINCT_AXES + 2];
+        EEPROM_READ((uint8_t *)tmp4, sizeof(tmp4));
+        LOOP_DISTINCT_AXES(i) {
+          planner.extras.invert_dir[i] = i < COUNT(tmp4) ? tmp4[i] : planner.extras.invert_dir[i];
+        }
+        planner.extras.encoder_dir = tmp4[DISTINCT_AXES];
+        planner.extras.disable_power_off = tmp4[DISTINCT_AXES + 1];
+#endif // MiniTreeFunc
+
       //
       // Validate Final Size and CRC
       //
@@ -2701,6 +2723,40 @@ void MarlinSettings::reset() {
   planner.settings.travel_acceleration = DEFAULT_TRAVEL_ACCELERATION;
   planner.settings.min_feedrate_mm_s = feedRate_t(DEFAULT_MINIMUMFEEDRATE);
   planner.settings.min_travel_feedrate_mm_s = feedRate_t(DEFAULT_MINTRAVELFEEDRATE);
+
+#ifdef MiniTreeFunc // MiniTree.h
+  // MiniTree 小树定制固件，恢复初始设置。
+  // 电机方向
+  bool Invert_DIR_Default[DISTINCT_AXES];
+  memset(Invert_DIR_Default, true, sizeof(Invert_DIR_Default));
+  #ifdef INVERT_X_DIR
+    Invert_DIR_Default[X_AXIS] = INVERT_X_DIR;
+  #endif
+  #ifdef INVERT_Y_DIR
+    Invert_DIR_Default[Y_AXIS] = INVERT_Y_DIR;
+  #endif
+  #ifdef INVERT_Z_DIR
+    Invert_DIR_Default[Z_AXIS] = INVERT_Z_DIR;
+  #endif
+  #ifdef INVERT_E0_DIR
+    Invert_DIR_Default[E_AXIS] = INVERT_E0_DIR;
+  #endif
+  LOOP_DISTINCT_AXES(i) {
+      planner.extras.invert_dir[i] = Invert_DIR_Default[i];
+  }
+  // 屏幕旋钮方向
+  #ifdef REVERSE_ENCODER_DIRECTION
+    planner.extras.encoder_dir = true;
+  #else
+    planner.extras.encoder_dir = false;
+  #endif
+  // 禁用自动关机
+  #ifdef AUTO_POWER_CONTROL
+    planner.extras.disable_power_off = false;
+  #else
+    planner.extras.disable_power_off = true;
+  #endif
+#endif // MiniTreeFunc
 
   #if HAS_CLASSIC_JERK
     #ifndef DEFAULT_XJERK

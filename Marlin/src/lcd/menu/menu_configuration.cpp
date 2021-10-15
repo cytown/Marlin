@@ -465,6 +465,11 @@ void menu_advanced_settings();
 
 #endif // CUSTOM_MENU_CONFIG
 
+#ifdef MiniTreeFunc // MiniTree.h
+// MiniTree 小树定制固件，新增调机选项
+void menu_setup();
+#endif // MiniTreeFunc
+
 void menu_configuration() {
   const bool busy = printer_busy();
 
@@ -487,6 +492,11 @@ void menu_configuration() {
       #endif
     }
   #endif
+
+#ifdef MiniTreeFunc // MiniTree.h
+  // MiniTree 小树定制固件，新增调机选项
+  SUBMENU(MSG_SETUP, menu_setup);
+#endif // MiniTreeFunc
 
   SUBMENU(MSG_ADVANCED_SETTINGS, menu_advanced_settings);
 
