@@ -470,7 +470,11 @@ const char str_t_thermal_runaway[] PROGMEM = STR_T_THERMAL_RUNAWAY,
 #endif
 
 #if ENABLED(PREVENT_COLD_EXTRUSION)
-  bool Temperature::allow_cold_extrude = false;
+#ifdef MiniTreeFunc // MiniTree.h
+  //bool Temperature::allow_cold_extrude = false;
+  // MiniTree 小树定制固件，把allow_cold_extrude改成true。这样就是默认开启冷挤出了。
+  bool Temperature::allow_cold_extrude = true;
+#endif // MiniTreeFunc
   celsius_t Temperature::extrude_min_temp = EXTRUDE_MINTEMP;
 #endif
 
