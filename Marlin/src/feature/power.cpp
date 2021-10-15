@@ -38,6 +38,15 @@
   #include "../libs/buzzer.h"
 #endif
 
+#ifdef MiniTreeFunc // MiniTree.h
+#include "../module/planner.h"
+#endif // MiniTreeFunc
+
+
+#if ENABLED(PS_OFF_SOUND)
+  #include "../libs/buzzer.h"
+#endif
+
 #if defined(PSU_POWERUP_GCODE) || defined(PSU_POWEROFF_GCODE)
   #include "../gcode/gcode.h"
 #endif

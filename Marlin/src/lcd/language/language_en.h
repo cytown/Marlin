@@ -838,6 +838,29 @@ namespace Language_en {
   LSTR MSG_PID_F                          = _UxGT("PID-F");
   LSTR MSG_PID_F_E                        = _UxGT("PID-F *");
   LSTR MSG_BACKLASH_N                     = _UxGT("@");
+
+  // MiniTree 小树定制固件，新增文本
+  PROGMEM Language_Str MSG_SETUP                           = _UxGT("Setup");
+  PROGMEM Language_Str MSG_INVERT_DIR                      = _UxGT("Motor Direction");
+  PROGMEM Language_Str MSG_ENCODER_DIR                     = _UxGT("Encoder Direction");
+  PROGMEM Language_Str MSG_ENDSTOP_STATUS                  = _UxGT("EndStop Status");
+  PROGMEM Language_Str MSG_ALLOW_COLD_EXTRUDE              = _UxGT("Allow Cold Extrude");
+  PROGMEM Language_Str MSG_LCD_Forward                     = _UxGT("F");
+  PROGMEM Language_Str MSG_LCD_Backward                    = _UxGT("B");
+  PROGMEM Language_Str MSG_X_INVERT_DIR                    = _UxGT("X Direction");
+  PROGMEM Language_Str MSG_Y_INVERT_DIR                    = _UxGT("Y Direction");
+  PROGMEM Language_Str MSG_Z_INVERT_DIR                    = _UxGT("Z Direction");
+  PROGMEM Language_Str MSG_E_INVERT_DIR                    = _UxGT("Extrudere Direction");
+  PROGMEM Language_Str MSG_X_MIN_STATUS                    = _UxGT("X min Endstop");
+  PROGMEM Language_Str MSG_Y_MIN_STATUS                    = _UxGT("Y min Endstop");
+  PROGMEM Language_Str MSG_Z_MIN_STATUS                    = _UxGT("Z min Endstop");
+  PROGMEM Language_Str MSG_X_MAX_STATUS                    = _UxGT("X max Endstop");
+  PROGMEM Language_Str MSG_Y_MAX_STATUS                    = _UxGT("Y max Endstop");
+  PROGMEM Language_Str MSG_Z_MAX_STATUS                    = _UxGT("Z max Endstop");
+  PROGMEM Language_Str MSG_RUNOUT_STATUS                   = _UxGT("Filament Runout Status");
+  PROGMEM Language_Str MSG_RUNOUT_YES                      = _UxGT("Runout");
+  PROGMEM Language_Str MSG_RUNOUT_NO                       = _UxGT("OK");
+  PROGMEM Language_Str MSG_AUTO_POWER_OFF                  = _UxGT("Auto Power Off");
 }
 
 #if FAN_COUNT == 1

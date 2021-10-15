@@ -298,6 +298,15 @@ typedef struct {
   };
 #endif
 
+#ifdef MiniTreeFunc // MiniTree.h
+// MiniTree 小树定制固件设置
+typedef struct {
+    bool invert_dir[DISTINCT_AXES];         // 电机方向
+    bool encoder_dir;                       // 屏幕旋钮方向
+    bool disable_power_off;                 // 禁用自动关机
+} minitree_extra_t;
+#endif
+
 #if DISABLED(SKEW_CORRECTION)
   #define XY_SKEW_FACTOR 0
   #define XZ_SKEW_FACTOR 0
@@ -374,6 +383,11 @@ class Planner {
     #endif
 
     static planner_settings_t settings;
+
+#ifdef MiniTreeFunc // MiniTree.h
+    // MiniTree 小树定制固件设置
+    static minitree_extra_t extras;
+#endif // MiniTreeFunc
 
     #if ENABLED(LASER_POWER_INLINE)
       static laser_state_t laser_inline;

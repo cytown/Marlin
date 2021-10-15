@@ -183,6 +183,28 @@ class MenuItem_bool : public MenuEditItemBase {
     }
 };
 
+#ifdef MiniTreeFunc // MiniTree.h
+
+class MenuItem_bools : public MenuEditItemBase {
+  public:
+    FORCE_INLINE static void _draw(const bool sel, const uint8_t row, FSTR_P const pstr, const bool onoff, const char * stron=nullptr, const char * stroff=nullptr) {
+      MenuEditItemBase::draw(sel, row, pstr, onoff ? (stron ? stron : GET_TEXT(MSG_LCD_ON)) : (stroff ? stroff : GET_TEXT(MSG_LCD_OFF)), true);
+    }
+    FORCE_INLINE static void draw(const bool sel, const uint8_t row, FSTR_P const pstr, bool * const data, const screenFunc_t=nullptr, bool=false, const char * stron=nullptr, const char * stroff=nullptr, ...) {
+      _draw(sel, row, pstr, *data, stron, stroff);
+    }
+    FORCE_INLINE static void draw(const bool sel, const uint8_t row, FSTR_P const pstr, PGM_P const, bool (*pget)(), const screenFunc_t=nullptr, bool=false, const char * stron=nullptr, const char * stroff=nullptr, ...) {
+      _draw(sel, row, pstr, pget(), stron, stroff);
+    }
+    static void action(FSTR_P const pstr, bool * const ptr, const screenFunc_t callbackFunc=nullptr, bool op=false, ...) {
+      if (op) *ptr ^= true;
+      if (callbackFunc) (*callbackFunc)();
+      ui.refresh();
+    }
+};
+
+#endif
+
 /**
  * ////////////////////////////////////////////
  * //////////// Menu System Macros ////////////
